@@ -2,7 +2,11 @@ import Spinner from '../../layaut/Spinner';
 import Text from '../../layaut/Text';
 import { Container } from './styled';
 
-const Loading = (): JSX.Element => {
+interface Props {
+    uploading: number;
+}
+
+const Loading = ({ uploading }: Props): JSX.Element => {
 
     return (
         <Container>
@@ -12,7 +16,7 @@ const Loading = (): JSX.Element => {
                 size='20px'
             >Cargando...</Text>
 
-            <Spinner />
+            <Spinner uploading={uploading} />
         </Container>
     )
 }

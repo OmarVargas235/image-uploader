@@ -11,19 +11,23 @@ const BackGround = styled.div`
     border-radius: 8px;
 `;
 
-const Bar = styled.div`
+const Bar = styled.div<{ uploading: number; }>`
     background-color: #2F80ED;
     height: 100%;
-    width: 99%;
+    width: ${props => `${props.uploading}%`};
     border-radius: 8px;
 `;
 
-const Spinner = (): JSX.Element => {
+interface Props {
+    uploading: number;
+}
+
+const Spinner = ({ uploading }: Props): JSX.Element => {
 
     return <Container className="position-relative w-100">
         <BackGround className="position-absolute" />
 
-        <Bar className="position-absolute" />
+        <Bar className="position-absolute" uploading={uploading} />
     </Container>;
 }
 

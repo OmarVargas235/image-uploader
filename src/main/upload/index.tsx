@@ -3,7 +3,12 @@ import Button from '../../layaut/Button';
 import { Container, Input } from './styled';
 import UploadImg from './UploadImg';
 
-const Upload = (): JSX.Element => {
+interface Props {
+    setUploading: (v: number) => void;
+    setImg: (v: string) => void;
+}
+
+const Upload = ({ setUploading, setImg }: Props): JSX.Element => {
 
     return (
         <Container>
@@ -19,7 +24,10 @@ const Upload = (): JSX.Element => {
                 className='text-center mb-5'
             >File should be .jpeg, .png</Text>
 
-            <UploadImg />
+            <UploadImg
+                setUploading={setUploading}
+                setImg={setImg}
+            />
 
             <Text
                 color='rgb(156 163 175/1)'

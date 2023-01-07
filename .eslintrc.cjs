@@ -6,24 +6,22 @@ module.exports = {
 	extends: [
 		'plugin:react/recommended',
 		'standard-with-typescript',
-		'plugin:react/recommended',
-			'standard-with-typescript',
-			'plugin:react/jsx-runtime',
-			'standard',
-			'eslint-config-prettier'
+		'plugin:react/jsx-runtime',
+		'standard',
+		'eslint-config-prettier'
 	],
 	overrides: [
 		{
-				files: ['*.ts', '*.tsx'],
-				rules: {
-					'no-undef': 'off',
-				},
+			files: ['*.ts', '*.tsx'],
+			rules: {
+				'no-undef': 'off',
 			},
+		},
 	],
 	parserOptions: {
 		ecmaVersion: 'latest',
-			sourceType: 'module',
-			project: ['tsconfig.json'],
+		sourceType: 'module',
+		project: ['tsconfig.json'],
 		tsconfigRootDir: __dirname,
 	},
 	plugins: [
@@ -31,6 +29,7 @@ module.exports = {
 	],
 	rules: {
 		"@typescript-eslint/consistent-type-assertions": "off",
-		"@typescript-eslint/no-explicit-any": "warn"
+		"@typescript-eslint/no-explicit-any": "warn",
+		"@typescript-eslint/no-misused-promises": "off"
 	},
 }

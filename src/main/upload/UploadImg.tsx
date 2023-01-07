@@ -5,24 +5,32 @@ import img from '../../assets/image-uploader.svg';
 import Text from '../../layaut/Text';
 import { ContainerUploader, Input } from './styled';
 
-const UploadImg = (): JSX.Element => {
+import fetchAPI from '../../fetchAPI';
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+
+interface Props {
+    setUploading: (v: number) => void;
+    setImg: (v: string) => void;
+}
+
+const UploadImg = ({ setUploading, setImg }: Props): JSX.Element => {
+
+    const handleChange = async (e: ChangeEvent<HTMLInputElement>): Promise<void> => {
 
         const fileList = e.target.files;
 
         if (fileList === null) return;
 
-        const file = fileList[0]; // lo que se enviara al servidor
+        const file = fileList[0];
+        const formData = new FormData();
         const reader = new FileReader();
 
-        reader.readAsText(file);
+        reader.readAsDataURL(file);
+        formData.append("file", file);
 
-        console.log(reader);
+        reader.onload = function(e) {
 
-        reader.onload = function() {
-
-            console.log(reader.result); // imagen para precargar
+            typeof reader.result === 'string' && setImg(reader.result);
         };
         
         reader.onerror = function() {
@@ -30,11 +38,7 @@ const UploadImg = (): JSX.Element => {
             console.log(reader.error);
         };
 
-        reader.onprogress = function(data) {
-
-            console.log("data:", data);
-            console.log(reader);
-        };
+        await fetchAPI.post('upload/upload-img', formData, {}, setUploading);
     }
 
     return (
