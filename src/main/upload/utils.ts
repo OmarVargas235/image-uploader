@@ -54,7 +54,7 @@ export const handleChange = async (e: ChangeEvent<HTMLInputElement>, setImg: (n:
 
         const error = err as AxiosError;
         const response = error.response?.data as { data: string[], messages: string; status: number };
-        console.log(response.messages);
+
         await Swal.fire(response.messages);
         setUploading(100);
     }
