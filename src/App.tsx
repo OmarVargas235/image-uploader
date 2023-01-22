@@ -22,12 +22,13 @@ function App(): JSX.Element {
 
     const [uploading, setUploading] = useState<number>(0);
     const [img, setImg] = useState<string>('');
+    const [url, setUrl] = useState<string>('');
 
     return (<div style={{ padding: '40px 0' }}>
         <GlobalStyle />
-        { uploading === 0 && <Upload setUploading={setUploading} setImg={setImg} /> }
+        { (uploading === 0 || uploading === 100 && url.length === 0) && <Upload setUploading={setUploading} setImg={setImg} setUrl={setUrl} /> }
         { (uploading > 0 && uploading < 100) && <Loading uploading={uploading} /> }
-        { uploading === 100 && <Img img={img} /> }
+        { (uploading === 100 && url.length > 0) && <Img img={img} url={url} /> }
 
         <div className='d-flex justify-content-center mt-3'>
             <Text

@@ -22,12 +22,14 @@ const ButtonPage = styled.button`
 interface Props {
     children: string;
     className?: string;
+    handleClick?: ()=>void;
 }
 
-const Button = ({ children, className }: Props): JSX.Element => {
+const Button = ({ children, className, handleClick=()=>{} }: Props): JSX.Element => {
 
     return <ButtonPage
         className={className}
+        onClick={handleClick}
     >{children}</ButtonPage>;
 }
 

@@ -2,13 +2,15 @@ import Text from '../../layaut/Text';
 import Button from '../../layaut/Button';
 import { Container, Input } from './styled';
 import UploadImg from './UploadImg';
+import { handleChange } from './utils';
 
 interface Props {
     setUploading: (v: number) => void;
     setImg: (v: string) => void;
+    setUrl: (v: string) => void;
 }
 
-const Upload = ({ setUploading, setImg }: Props): JSX.Element => {
+const Upload = ({ setUploading, setImg, setUrl }: Props): JSX.Element => {
 
     return (
         <Container>
@@ -27,6 +29,7 @@ const Upload = ({ setUploading, setImg }: Props): JSX.Element => {
             <UploadImg
                 setUploading={setUploading}
                 setImg={setImg}
+                setUrl={setUrl}
             />
 
             <Text
@@ -43,7 +46,11 @@ const Upload = ({ setUploading, setImg }: Props): JSX.Element => {
                         className='text-center'
                     >Choose a file</Button>
 
-                    <Input type='file' className='position-absolute pointer' />
+                    <Input
+                        type='file'
+                        className='position-absolute pointer'
+                        onChange={(e) => {void handleChange(e, setImg, setUploading, setUrl)}}
+                    />
                 </div>
 
             </div>

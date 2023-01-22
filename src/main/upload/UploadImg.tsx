@@ -1,45 +1,17 @@
-import { ChangeEvent } from 'react';
-
 import img from '../../assets/image-uploader.svg';
 
 import Text from '../../layaut/Text';
 import { ContainerUploader, Input } from './styled';
-
-import fetchAPI from '../../fetchAPI';
+import { handleChange } from './utils';
 
 
 interface Props {
     setUploading: (v: number) => void;
     setImg: (v: string) => void;
+    setUrl: (v: string) => void;
 }
 
-const UploadImg = ({ setUploading, setImg }: Props): JSX.Element => {
-
-    const handleChange = async (e: ChangeEvent<HTMLInputElement>): Promise<void> => {
-
-        const fileList = e.target.files;
-
-        if (fileList === null) return;
-
-        const file = fileList[0];
-        const formData = new FormData();
-        const reader = new FileReader();
-
-        reader.readAsDataURL(file);
-        formData.append("file", file);
-
-        reader.onload = function(e) {
-
-            typeof reader.result === 'string' && setImg(reader.result);
-        };
-        
-        reader.onerror = function() {
-
-            console.log(reader.error);
-        };
-
-        await fetchAPI.post('upload/upload-img', formData, {}, setUploading);
-    }
+const UploadImg = ({ setUploading, setImg, setUrl }: Props): JSX.Element => {
 
     return (
         <ContainerUploader className='position-relative'>
@@ -54,7 +26,7 @@ const UploadImg = ({ setUploading, setImg }: Props): JSX.Element => {
             <Input
                 type='file'
                 className='position-absolute pointer'
-                onChange={handleChange}
+                onChange={(e) => {void handleChange(e, setImg, setUploading, setUrl)}}
             />
         </ContainerUploader>
     );

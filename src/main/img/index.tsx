@@ -1,24 +1,38 @@
 import Text from '../../layaut/Text';
 import { Container, Input, ContainerCopy } from './styled';
+import Swal from 'sweetalert2';
 
 import check from '../../assets/check.svg';
 import copy from '../../assets/copy.svg';
 
 interface Props {
     img: string;
+    url: string;
 }
 
-const ImgUpload = ({ img }: Props): JSX.Element => {
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top',
+    showConfirmButton: false,
+    timer: 3000,
+});
+
+const ImgUpload = ({ img, url }: Props): JSX.Element => {
 
     const copyUrl = (): void => {
 
         const aux = document.createElement("input");
 
-        aux.setAttribute("value", 'https://storage.googleapis.com/snapit-images/mask_group.png');
+        aux.setAttribute("value", url);
         document.body.appendChild(aux);
         aux.select();
         document.execCommand("copy");
         document.body.removeChild(aux);
+
+        void Toast.fire({
+            icon: 'success',
+            title: 'Copied to clipboard'
+        });
     }
 
     return (
@@ -38,7 +52,7 @@ const ImgUpload = ({ img }: Props): JSX.Element => {
             >
                 <Input
                     type='text'
-                    value='https://storage.googleapis.com/snapit-images/mask_group.png'
+                    value={url}
                     className='w-100'
                     disabled
                 />
